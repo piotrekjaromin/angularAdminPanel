@@ -1,0 +1,14 @@
+<form>
+  <h1>Username</h1>
+  <div class="form-group">
+    <label for="nameAndSurname">Username</label>
+    <input type="email" class="form-control" id="nameAndSurname" aria-describedby="emailHelp"
+           placeholder="Username" required="required" (keyup)="insertUsername($event)" >
+  </div>
+  <h1>Password</h1>
+  <div class="form-group">
+    <label for="address">Password</label>
+    <input type="text" class="form-control" id="address" placeholder="password" required="required" (keyup)="insertPassword($event)">
+  </div>
+  <button class="btn" (click)="login()">Login</button>
+</form>

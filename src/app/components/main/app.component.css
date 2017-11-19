@@ -1,0 +1,17 @@
+#top_bar {
+  background: #696969;
+  color: white;
+}
+top-nav {
+  width: 100%;
+}
+nav {
+  margin-bottom: 1%;
+}
+
+cart {
+  position: absolute;
+  width: 98%;
+  margin-left: 1%;
+  margin-right: 1%;
+}

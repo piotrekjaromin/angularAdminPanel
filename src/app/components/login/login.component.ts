@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 import {UserService} from '../../services/user.service';
+import {OrderService} from '../../services/order.service';
 
 @Component({
   selector: 'login',
@@ -12,7 +13,7 @@ export class LoginComponent{
   username = 'fghdfgh';
   password = 'asdfasdf';
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private orderService: OrderService) {
   }
 
 
@@ -25,6 +26,15 @@ export class LoginComponent{
   }
 
   login() {
-    this.userService.login(this.username, this.password);
+    this.userService.login(this.username, this.password)
+      .subscribe(
+      data => console.log('id: ' + data['id'] + ' uid ' + data['uid']),
+      err => console.log('error: ' + err),
+      () => console.log('other')
+    );
+  }
+
+  getOrders() {
+    this.orderService.getOrders();
   }
 }

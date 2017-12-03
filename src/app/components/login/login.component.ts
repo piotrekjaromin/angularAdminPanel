@@ -1,7 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-
+import {Md5} from 'ts-md5/dist/md5';
 import {UserService} from '../../services/user.service';
 import {OrderService} from '../../services/order.service';
+import {User} from '../../data/user';
+import {ViewService} from "../../services/view.service";
 
 @Component({
   selector: 'login',
@@ -10,10 +12,13 @@ import {OrderService} from '../../services/order.service';
 })
 export class LoginComponent{
 
-  username = 'fghdfgh';
-  password = 'asdfasdf';
+  username: string;
+  password: string;
+  status: string;
+  message: string;
 
-  constructor(private userService: UserService, private orderService: OrderService) {
+
+  constructor(private userService: UserService, private orderService: OrderService, private viewService: ViewService) {
   }
 
 
@@ -26,12 +31,16 @@ export class LoginComponent{
   }
 
   login() {
-    this.userService.login(this.username, this.password)
-      .subscribe(
-      data => console.log('id: ' + data['id'] + ' uid ' + data['uid']),
-      err => console.log('error: ' + err),
-      () => console.log('other')
-    );
+    this.userService.login(new User(this.username, Md5.hashStr(this.password).toString(), '')).subscribe(p => {
+          if (p.status === 200) {
+            this.status = 'success';
+            sessionStorage.setItem('token', p.text());
+            this.viewService.setView('buttons');
+          } else {
+            this.status = 'failure';
+          }
+        }
+      );
   }
 
   getOrders() {

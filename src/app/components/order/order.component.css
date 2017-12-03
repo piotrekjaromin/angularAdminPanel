@@ -1,0 +1,22 @@
+p.product-name {
+  font-weight: bolder;
+}
+.card {
+  margin-bottom: 10px;
+}
+.add-to-cart {
+  position: absolute;
+  right: 3%;
+  top: 30%;
+  width: auto;
+}
+#pagination {
+  position: absolute;
+  right: 3%;
+}
+.approve {
+  position: absolute;
+  right: 12%;
+  top: 30%;
+  width: auto;
+}

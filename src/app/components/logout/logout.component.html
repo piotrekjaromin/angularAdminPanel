@@ -1,0 +1,6 @@
+<div class="alert alert-success" *ngIf="status === 'success'">
+  <strong>Success!</strong>
+</div>
+<button class="btn" (click)="changeView('login')" *ngIf="status === 'success'">Login</button>
+<button class="btn" (click)="logout()" *ngIf="status !== 'success'">Logout</button>
+

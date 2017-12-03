@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-sm-2">
+    <left-menu
+      (selectedCategories)="changeSelectedCategory($event)"
+      (priceFromEmiter)="getPriceFrom($event)"
+      (priceToEmiter)="getPriceTo($event)"
+      (nameEmiter)="getName($event)"
+    ></left-menu>
+  </div>
+  <div class="col-sm-10">
+    <list-of-products
+    [numberOfPages]="numberOfPages"
+    [currentPage]="currentPage"
+    [products] = "products"
+    [numberOfPages] = "numberOfPages"
+    (currentPageEmiter)="pagination($event)">
+    </list-of-products>
+  </div>
+</div>

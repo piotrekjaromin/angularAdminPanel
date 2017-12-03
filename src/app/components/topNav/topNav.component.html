@@ -1,9 +1,9 @@
 <div class="row">
-  <div class="col-sm-4">
+  <div class="col-sm-4" (click)="changeView('buttons')">
     Sport shop Admin
   </div>
   <div class="col-sm-8" id="cart-details">
 
-    <button class="btn btn-sm" id="go-to-cart" routerLink="/login">login</button>
+    <button class="btn btn-sm" id="go-to-cart" (click)="changeView('logout')">logout</button>
   </div>
 </div>

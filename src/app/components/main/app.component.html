@@ -1,4 +1,13 @@
-<nav class="navbar bg-dark text-light">
+<nav class="navbar bg-dark text-light" >
   <top-nav></top-nav>
 </nav>
-<router-outlet>
+<login *ngIf="view =='login'"></login>
+<dashboard *ngIf="view =='dashboard'"></dashboard>
+<order *ngIf="view =='order'"></order>
+
+<div *ngIf="view== 'buttons'">
+  <button class="btn" (click)="changeView('dashboard')">products</button>
+  <button class="btn" (click)="changeView('order')">orders</button>
+</div>
+
+<logout *ngIf="view == 'logout'"></logout>

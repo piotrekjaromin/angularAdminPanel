@@ -1,4 +1,4 @@
-<form>
+<form *ngIf="status != 'success'">
   <h1>Username</h1>
   <div class="form-group">
     <label for="nameAndSurname">Username</label>
@@ -8,9 +8,16 @@
   <h1>Password</h1>
   <div class="form-group">
     <label for="address">Password</label>
-    <input type="text" class="form-control" id="address" placeholder="password" required="required" (keyup)="insertPassword($event)">
+    <input type="password" class="form-control" id="address" placeholder="password" required="required" (keyup)="insertPassword($event)">
   </div>
   <button class="btn" (click)="login()">Login</button>
-
-  <button (click)="getOrders()">getOrders</button>
 </form>
+
+<div class="alert alert-success" *ngIf="isSuccess">
+  <strong>Success!</strong>
+</div>
+<button class="btn" routerLink="/dashboard" *ngIf="isSuccess">Go to dashboard</button>
+
+<div class="alert alert-danger" *ngIf="status === 'failure'">
+  <strong>Wrong login or password.</strong>
+</div>

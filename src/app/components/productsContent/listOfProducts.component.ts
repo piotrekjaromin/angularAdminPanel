@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Product} from '../../data/product';
 import {ProductService} from "../../services/product.service";
+import {SocketService} from "../../services/socket.service";
 
 @Component({
   selector: 'list-of-products',
@@ -16,8 +17,9 @@ export class ListOfProductsComponent {
   currentProduct: Product = new Product('', '', '', 0, '');
 
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService, private socketService: SocketService) {
   }
+
 
   selectProduct(product: Product) {
     this.currentProduct = product;
@@ -34,8 +36,10 @@ export class ListOfProductsComponent {
   editProduct() {
     if (this.currentProduct._id === '') {
       this.productService.addProduct(this.currentProduct).subscribe();
+      this.socketService.sendMessage('Added new product: ' + this.currentProduct.name);
     } else {
       this.productService.editProduct(this.currentProduct).subscribe();
+      this.socketService.sendMessage("Edited product: " + this.currentProduct.name);
     }
   }
 }

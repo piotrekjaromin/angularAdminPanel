@@ -14,6 +14,8 @@ import {ProductService} from './services/product.service';
 import {OrderComponent} from "./components/order/order.component";
 import {ViewService} from "./services/view.service";
 import {LogoutComponent} from "./components/logout/logout.component";
+import {SocketService} from "./services/socket.service";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -29,9 +31,10 @@ import {LogoutComponent} from "./components/logout/logout.component";
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    HttpClientModule
   ],
-  providers: [UserService, OrderService, ProductService, ViewService],
+  providers: [UserService, OrderService, ProductService, ViewService, SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

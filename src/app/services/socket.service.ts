@@ -1,16 +1,49 @@
 
-import {Injectable} from '@angular/core';
-import * as sioc from 'socket.io-client';
+import { Injectable, OnDestroy } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
+import * as io from 'socket.io-client';
+
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
 @Injectable()
-export class SocketService {
+export class SocketService implements OnDestroy {
 
+  private itemsUrl = 'http://localhost:8080/api/products';
+  private promoUrl = 'http://localhost:8080/api/products/promo';
+  private promoDeleteUrl = 'http://localhost:8080/api/products/promo_del';
+  private categoriesUrl = 'http://localhost:8080/api/categories';
+  private socket;
+  private connection;
 
-  init() {
-    console.log('SocketService init');
-    const socket = sioc.connect('/', {path: '/ws'});
-    socket.on('messages', (data) => {
-      console.log('socket', data);
-    });
+  constructor(private http: Http, private httpClient: HttpClient) {
+    this.connection = this.getMessage().subscribe();
   }
 
+  getMessage() {
+    const observable = new Observable(observer => {
+      this.socket = io('http://localhost:5000');
+      this.socket.on('message', (message) => {
+        observer.next(message.data);
+      });
+      return () => {
+        this.socket.disconnect();
+      };
+    });
+
+    return observable;
+  }
+
+  sendMessage(message: string) {
+    console.log('sending message... ' + message);
+    this.socket.emit('editProduct', message);
+  }
+
+  ngOnDestroy() {
+    this.connection.unsubscribe();
+  }
 }

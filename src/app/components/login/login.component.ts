@@ -31,6 +31,9 @@ export class LoginComponent{
   }
 
   login() {
+    console.log(this.username);
+    console.log(Md5.hashStr(this.password).toString());
+    console.log(this.password);
     this.userService.login(new User(this.username, Md5.hashStr(this.password).toString(), '')).subscribe(p => {
           if (p.status === 200) {
             this.status = 'success';

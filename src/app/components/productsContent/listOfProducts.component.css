@@ -13,3 +13,15 @@ p.product-name {
   position: absolute;
   right: 3%;
 }
+.promotion {
+  position: absolute;
+  right: 12%;
+  top: 30%;
+  width: auto;
+}
+.removePromotion {
+  position: absolute;
+  right: 25%;
+  top: 30%;
+  width: auto;
+}

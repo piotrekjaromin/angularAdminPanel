@@ -14,33 +14,45 @@ export class ListOfProductsComponent {
   @Input() numberOfPages: number;
   @Output() currentPageEmiter = new EventEmitter<number>();
 
-  currentProduct: Product = new Product('', '', '', 0, '');
+  currentProduct: Product = new Product('', '', '', 0, '', 0);
 
 
   constructor(private productService: ProductService, private socketService: SocketService) {
   }
 
-
   selectProduct(product: Product) {
     this.currentProduct = product;
+    console.log(product);
+    console.log(product.promotionPrice);
   }
 
-  addProduct() {
-    this.currentProduct = new Product('', '', '', 0, '');
+  prepareProductToAdd() {
+    this.currentProduct = new Product('', '', '', 0, '', 0);
   }
 
   changePage(page: number): void {
     this.currentPageEmiter.emit(page);
   }
 
-  editProduct() {
-    if (this.currentProduct._id === '') {
+  addProduct() {
       this.productService.addProduct(this.currentProduct).subscribe();
-      this.socketService.sendMessage('Added new product: ' + this.currentProduct.name);
-    } else {
+      this.socketService.sendMessage('addProduct', 'Added new product: ' + this.currentProduct.name);
+  }
+
+  editProduct() {
       this.productService.editProduct(this.currentProduct).subscribe();
-      this.socketService.sendMessage("Edited product: " + this.currentProduct.name);
-    }
+      this.socketService.sendMessage('editProduct', 'Edited product: ' + this.currentProduct.name);
+  }
+
+  addPromotion() {
+    this.productService.addPromotion(this.currentProduct).subscribe();
+    this.socketService.sendMessage('addPromotion', 'Added promotion to product: ' + this.currentProduct.name);
+  }
+
+  removePromotion(product) {
+    product.promotionPrice = 0;
+    this.productService.removePromotion(product).subscribe();
+    this.socketService.sendMessage('removePromotion', 'Removed promotion of product: ' + product.name);
   }
 }
 

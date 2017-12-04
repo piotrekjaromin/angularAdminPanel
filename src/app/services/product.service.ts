@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/map';
-import {Http, RequestOptions, Response} from '@angular/http';
-import {Product} from "../data/product";
+import {Http, RequestOptions, Response, Headers} from '@angular/http';
+import {Product} from '../data/product';
 
 @Injectable()
 export class ProductService {
@@ -37,18 +37,31 @@ export class ProductService {
   }
 
   editProduct(product: Product) {
-    const headers = new Headers({'Content-Type': 'application/json'});
-    const options = new RequestOptions(headers);
-    console.log(product)
+    const headers = new Headers({'token': sessionStorage.getItem('token')});
+    const options = new RequestOptions({headers: headers});
     return this.http
-      .put(this.getProductHttp + '/' + product._id, product, options);
+      .put(this.getProductHttp, product, options);
   }
 
   addProduct(product: Product) {
-    const headers = new Headers({'Content-Type': 'application/json'});
-    const options = new RequestOptions(headers);
-    console.log(product)
+    const headers = new Headers({'token': sessionStorage.getItem('token')});
+    const options = new RequestOptions({headers: headers});
     return this.http
       .post(this.getProductHttp, product, options);
   }
+
+  addPromotion(product: Product) {
+    const headers = new Headers({'token': sessionStorage.getItem('token')});
+    const options = new RequestOptions({headers: headers});
+    return this.http
+      .put(this.getProductHttp + '/promotion/add', product, options);
+  }
+
+  removePromotion(product: Product) {
+    const headers = new Headers({'token': sessionStorage.getItem('token')});
+    const options = new RequestOptions({headers: headers});
+    return this.http
+      .put(this.getProductHttp + '/promotion/remove', product, options);
+  }
+
 }

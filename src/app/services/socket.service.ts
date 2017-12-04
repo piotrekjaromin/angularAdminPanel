@@ -12,11 +12,6 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class SocketService implements OnDestroy {
-
-  private itemsUrl = 'http://localhost:8080/api/products';
-  private promoUrl = 'http://localhost:8080/api/products/promo';
-  private promoDeleteUrl = 'http://localhost:8080/api/products/promo_del';
-  private categoriesUrl = 'http://localhost:8080/api/categories';
   private socket;
   private connection;
 
@@ -38,9 +33,8 @@ export class SocketService implements OnDestroy {
     return observable;
   }
 
-  sendMessage(message: string) {
-    console.log('sending message... ' + message);
-    this.socket.emit('editProduct', message);
+  sendMessage(type: string, message: string) {
+    this.socket.emit(type, message);
   }
 
   ngOnDestroy() {

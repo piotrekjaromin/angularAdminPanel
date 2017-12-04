@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import {Http, RequestOptions,  Response, Headers} from '@angular/http';
-import {User} from '../data/user';
-import {Order} from "../data/order";
+import {Order} from '../data/order';
 
 @Injectable()
 export class OrderService {
@@ -16,19 +15,19 @@ export class OrderService {
   }
 
   getRealizedOrders(token: string) {
-    let headers = new Headers({'token': token});
+    const headers = new Headers({'token': token});
     const options = new RequestOptions({headers: headers});
     return this.http.get(this.getProductHttp + '/realized', options).map((response: Response) => response.json());
   }
 
   getNotRealizedOrders(token: string) {
-    let headers = new Headers({'token': token});
+    const headers = new Headers({'token': token});
     const options = new RequestOptions({headers: headers});
     return this.http.get(this.getProductHttp + '/notrealized', options).map((response: Response) => response.json());
   }
 
   approveOrder(token: string, order: Order) {
-    let headers = new Headers({'token': token});
+    const headers = new Headers({'token': token});
     const options = new RequestOptions({headers: headers});
     return this.http.put(this.getProductHttp + '/approve', order, options);
   }
